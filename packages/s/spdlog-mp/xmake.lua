@@ -45,12 +45,21 @@ package("spdlog-mp")
 
     on_install(function (package)
         local configs = {}
-        configs.enable_multiprocess = package:config("enable_multiprocess")
-        -- Note: header_only is handled by on_load, not passed to xmake build
-        configs.use_std_format = package:config("std_format")
-        configs.fmt_external = package:config("fmt_external")
-        configs.fmt_external_ho = package:config("fmt_external_ho")
-        configs.no_exceptions = package:config("noexcept")
+        if package:config("enable_multiprocess") then
+            configs.enable_multiprocess = true
+        end
+        if package:config("std_format") then
+            configs.use_std_format = true
+        end
+        if package:config("fmt_external") then
+            configs.fmt_external = true
+        end
+        if package:config("fmt_external_ho") then
+            configs.fmt_external_ho = true
+        end
+        if package:config("noexcept") then
+            configs.no_exceptions = true
+        end
         import("package.tools.xmake").install(package, configs)
     end)
 
