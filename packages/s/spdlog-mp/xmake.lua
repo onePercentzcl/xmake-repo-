@@ -46,7 +46,7 @@ package("spdlog-mp")
         end
         -- 根据用户项目的编译模式添加 NDEBUG
         -- release 模式添加 NDEBUG，debug 模式不添加
-        if not package:debug() then
+        if not package:is_debug() then
             package:add("defines", "NDEBUG")
         end
     end)
