@@ -5,6 +5,7 @@ package("spdlog-mp")
 
     set_urls("https://github.com/onePercentzcl/spdlog-mp.git")
     add_versions("main", "main")
+    add_versions("v1.0.2", "86c3858")  -- 移除所有调试输出
     add_versions("v1.0.1", "7965092eac7c26f8624b38a7963004e319c92ddc")  -- 修复 poll_duration 配置不生效
 
     add_configs("enable_multiprocess", {description = "Enable multiprocess shared memory support", default = true, type = "boolean"})
