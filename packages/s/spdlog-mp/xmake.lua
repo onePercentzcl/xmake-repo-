@@ -46,8 +46,10 @@ package("spdlog-mp")
 
     on_install(function (package)
         local configs = {}
-        -- 传递编译模式（debug/release）
-        configs.mode = package:debug() and "debug" or "release"
+        
+        -- 强制使用 release 模式编译（禁用调试输出）
+        -- 即使用户项目是 debug 模式，库也使用 release 模式
+        configs.mode = "release"
         
         if package:config("enable_multiprocess") then
             configs.enable_multiprocess = true
