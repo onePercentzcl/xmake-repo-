@@ -46,6 +46,9 @@ package("spdlog-mp")
 
     on_install(function (package)
         local configs = {}
+        -- 传递编译模式（debug/release）
+        configs.mode = package:debug() and "debug" or "release"
+        
         if package:config("enable_multiprocess") then
             configs.enable_multiprocess = true
         end
