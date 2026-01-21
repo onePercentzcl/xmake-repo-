@@ -52,9 +52,13 @@ package("spdlog-mp")
     on_install(function (package)
         local configs = {}
         
-        -- 强制使用 release 模式编译库（禁用调试输出）
-        -- NDEBUG 定义在 on_load 中根据用户项目模式添加
-        configs.mode = "release"
+        -- 根据用户项目的编译模式设置库的编译模式
+        -- 这样 .cpp 文件中的 #ifdef NDEBUG 才能正确工作
+        if package:is_debug() then
+            configs.mode = "debug"
+        else
+            configs.mode = "release"
+        end
         
         if package:config("enable_multiprocess") then
             configs.enable_multiprocess = true
