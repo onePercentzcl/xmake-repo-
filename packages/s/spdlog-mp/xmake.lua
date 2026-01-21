@@ -5,8 +5,8 @@ package("spdlog-mp")
 
     set_urls("https://github.com/onePercentzcl/spdlog-mp.git")
     add_versions("main", "main")
-    add_versions("v1.0.2", "86c38586f799e0b32394f36fb1f0a5c1518b98c9")  -- 移除所有调试输出
-    add_versions("v1.0.1", "7965092eac7c26f8624b38a7963004e319c92ddc")  -- 修复 poll_duration 配置不生效
+    add_versions("v1.0.2", "86c38586f799e0b32394f36fb1f0a5c1518b98c9")
+    add_versions("v1.0.1", "7965092eac7c26f8624b38a7963004e319c92ddc")
 
     add_configs("enable_multiprocess", {description = "Enable multiprocess shared memory support", default = true, type = "boolean"})
     add_configs("header_only", {description = "Use header only version", default = false, type = "boolean"})
@@ -48,8 +48,7 @@ package("spdlog-mp")
     on_install(function (package)
         local configs = {}
         
-        -- 强制使用 release 模式编译（禁用调试输出）
-        -- 即使用户项目是 debug 模式，库也使用 release 模式
+        -- 强制使用 release 模式编译
         configs.mode = "release"
         
         if package:config("enable_multiprocess") then
@@ -67,6 +66,10 @@ package("spdlog-mp")
         if package:config("noexcept") then
             configs.no_exceptions = true
         end
+        
+        -- 显式添加 NDEBUG 定义（确保 release 模式格式生效）
+        package:add("defines", "NDEBUG")
+        
         import("package.tools.xmake").install(package, configs)
     end)
 
