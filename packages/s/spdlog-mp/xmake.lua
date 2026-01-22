@@ -5,6 +5,7 @@ package("spdlog-mp")
 
     set_urls("https://github.com/onePercentzcl/spdlog-mp.git")
     add_versions("main", "main")
+    add_versions("v0.0.2", "b37d4aa5bad8440d86260cacdb306c071bf1cc03")
     add_versions("v0.0.1", "af23d457febc7e40792bf8e3dcf2feeded30b919")
 
     add_configs("enable_multiprocess", {description = "Enable multiprocess shared memory support", default = true, type = "boolean"})
